@@ -1,0 +1,28 @@
+name: NYTProf
+version: 0.01
+
+description: <__trans phrase="Use Plack::Middleware::Profiler::NYTProf on MT::PSGI.">
+plugin_link: https://github.com/masiuchi/mt-plugin-nytprof
+
+author_name: Masahiro Iuchi
+author_link: https://github.com/masiuchi
+
+config_settings:
+  ProfilingResultDir:
+    handler: sub { 'mt-static/support/nytprof' }
+  ReportDir:
+    handler: sub { 'mt-static/support/nytprof/report' }
+
+plack_middlewares:
+  - name: Profiler::NYTProf
+    options:
+      - key: profiling_result_dir
+        handler: |
+          sub {
+            require MT::FileMgr;
+            MT::FileMgr->new('Local')->mkpath( MT->config->ProfilingResultDir );
+            return MT->config->ProfilingResultDir;
+          }
+      - key: report_dir
+        handler: sub { MT->config->ReportDir }
+
