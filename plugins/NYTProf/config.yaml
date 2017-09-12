@@ -1,5 +1,5 @@
 name: NYTProf
-version: 0.01
+version: 0.02
 
 description: <__trans phrase="Use Plack::Middleware::Profiler::NYTProf on MT::PSGI.">
 plugin_link: https://github.com/masiuchi/mt-plugin-nytprof
