@@ -8,6 +8,8 @@ author_name: Masahiro Iuchi
 author_link: https://github.com/masiuchi
 
 config_settings:
+  ProfilingCondition:
+    handler: sub { sub { $_[0]->{QUERY_STRING} =~ /profile=1/ } }
   ProfilingResultDir:
     handler: sub { 'mt-static/support/nytprof' }
   ReportDir:
@@ -25,4 +27,5 @@ plack_middlewares:
           }
       - key: report_dir
         handler: sub { MT->config->ReportDir }
+    condition: sub { MT->config->ProfilingCondition->(@_) }
 
